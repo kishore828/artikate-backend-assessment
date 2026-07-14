@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# Production / runtime dependencies
+# ---------------------------------------------------------------------------
+Django==4.2.16
+celery==5.4.0
+redis==5.0.8
+django-silk==5.2.0
+psycopg2-binary==2.9.9
+
+# ---------------------------------------------------------------------------
+# Production server (referenced by Dockerfile + docker-compose.prod.yml).
+# Not required for dev (`python manage.py runserver` works without them).
+# ---------------------------------------------------------------------------
+gunicorn==23.0.0
+whitenoise==6.7.0
+python-json-logger==2.0.7
+flower==2.0.1
+
+# ---------------------------------------------------------------------------
+# Test dependencies (pytest-django is required by the assessment brief;
+# fakeredis is added so the rate-limiter / Celery tests run without
+# requiring a live Redis server during `pytest`.)
+# ---------------------------------------------------------------------------
+pytest==8.3.3
+pytest-django==4.9.0
+fakeredis==2.24.1
+# `lupa` lets fakeredis execute Lua scripts (EVAL/EVALSHA) — required so
+# the Section 2 Token Bucket Lua script runs in the test suite without
+# a live Redis server. lupa>=2.8 is required for fakeredis 2.24+.
+lupa==2.8
